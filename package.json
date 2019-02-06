@@ -4,12 +4,13 @@
   "description": "An awesome api for heroes !",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "env-cmd .env node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Vincent Laude <vincent.laude2@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "env-cmd": "^8.0.2",
     "express": "^4.16.4",
     "pg": "^7.8.0",
     "pg-hstore": "^2.3.2",
