@@ -10,6 +10,9 @@
   "author": "Vincent Laude <vincent.laude2@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "pg": "^7.8.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.42.0"
   }
 }
