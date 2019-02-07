@@ -1,9 +1,9 @@
-const sequelize = require('../config/sequelize.config');
+const db = require('../config/sequelize.config');
 
-sequelize
+db.sequelize
     .authenticate()
     .then(() => {
-        console.log('Connection has been established successfully.');
+        console.log('Connection has been established successfully.')
     })
     .catch(err => {
         console.error('Unable to connect to the database:', err);

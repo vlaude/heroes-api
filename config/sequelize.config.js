@@ -1,4 +1,11 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize(process.env.DATABASE_URL);
+const db = {};
 
-module.exports = sequelize;
+const sequelize = new Sequelize(process.env.DATABASE_URL, { dialect: 'postgres' });
+
+const User = sequelize.import('../db/models/user');
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+module.exports = db;
