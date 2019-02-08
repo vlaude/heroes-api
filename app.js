@@ -3,7 +3,7 @@ const socketIO = require('socket.io');
 const cors = require('cors');
 
 const api = require('./routes/routes');
-api.use(cors);
+api.use(cors());
 
 const server = http.Server(api);
 const io = socketIO(server);
