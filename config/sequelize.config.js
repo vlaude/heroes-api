@@ -4,7 +4,7 @@ const db = {};
 const sequelize = new Sequelize(process.env.DATABASE_URL, { dialect: 'postgres' });
 
 sequelize.import('../db/models/user');
-sequelize.import('../db/models/message');
+sequelize.import('../db/models/messages');
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

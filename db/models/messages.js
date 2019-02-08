@@ -1,12 +1,12 @@
 module.exports = (sequelize, DataTypes) => {
-    const Message = sequelize.define('message', {
+    const Messages = sequelize.define('Messages', {
         timeStamp: DataTypes.DATE,
         message: DataTypes.STRING
     }, {
         paranoid: true
     });
 
-    Message.sync({ force: true });
+    Messages.sync({ force: true });
 
-    return Message;
+    return Messages;
 };
