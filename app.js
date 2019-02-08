@@ -1,16 +1,11 @@
-const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
 
-const app = express();
-const server = http.Server(app);
+const api = require('./routes/routes');
+const server = http.Server(api);
 const io = socketIO(server);
 
 require('./db');
-
-app.get('/', (req, res) => {
-    res.send('Hello World');
-});
 
 io.on('connection', (socket) => {
     console.log('user connected');
