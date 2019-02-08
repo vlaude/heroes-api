@@ -14,18 +14,16 @@ api.use(bodyParser.urlencoded());
 api.use(helmet());
 
 apiRoutes.get('/', (req, res) => {
-    res.status(200).send({ message: 'Hello from the awesome heroes api !' });
+  res.status(200).send({ message: 'Hello from the awesome heroes api !' });
 });
 
-apiRoutes
-    .use('/messages', apiMessages)
-    .use((err, req, res, next) => {
-        res.status(403).send({
-            success: false,
-            message: `${err.name} : ${err.message}`,
-        });
-        next();
-    });
+apiRoutes.use('/messages', apiMessages).use((err, req, res, next) => {
+  res.status(403).send({
+    success: false,
+    message: `${err.name} : ${err.message}`,
+  });
+  next();
+});
 
 api.use('/api/v1', apiRoutes);
 

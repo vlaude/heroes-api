@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "env-cmd .env node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier --single-quote --trailing-comma es5 --write \"./**/*.js\" "
   },
   "author": "Vincent Laude <vincent.laude2@gmail.com>",
   "license": "ISC",
@@ -19,5 +20,8 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.42.0",
     "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.16.4"
   }
 }
