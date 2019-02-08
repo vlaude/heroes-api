@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const hpp = require('hpp');
 const helmet = require('helmet');
 
 const api = express();
 api.use(express.json({ limit: '1mb' }));
+api.use(cors());
 const apiRoutes = express.Router();
 
 const apiMessages = require('./messages');

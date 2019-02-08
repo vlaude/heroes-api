@@ -1,9 +1,7 @@
 const http = require('http');
 const socketIO = require('socket.io');
-const cors = require('cors');
 
 const api = require('./routes/routes');
-api.use(cors());
 
 const server = http.Server(api);
 const io = socketIO(server);
