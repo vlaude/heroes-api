@@ -6,7 +6,12 @@ module.exports = (sequelize, DataTypes) => {
         paranoid: true
     });
 
-    Messages.sync({ force: true });
+    Messages.sync({ force: true }).then(() => {
+        return Messages.create({
+            timeStamp: new Date(),
+            message: 'Hello World!'
+        })
+    });
 
     return Messages;
 };

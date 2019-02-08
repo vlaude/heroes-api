@@ -8,10 +8,10 @@ apiMessages.get('/', (req, res) => {
     getAllMessages().then(messages => {
         res.status(200).send({
             success: true,
-            proile: messages,
+            profile: messages,
             message: 'messages retrieved with success'
         })
     })
 });
 
-module.exports = apiMessages;
+module.exports =  apiMessages;

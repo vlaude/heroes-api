@@ -5,7 +5,7 @@ const api = require('./routes/routes');
 const server = http.Server(api);
 const io = socketIO(server);
 
-require('./db');
+const db = require('./db');
 
 io.on('connection', (socket) => {
     console.log('user connected');
@@ -16,6 +16,12 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(process.env.PORT || 3000, () => {
-    console.log('🏋  Server listening on port 3000 ...');
-});
+db.sequelize
+    .sync()
+    .then(() =>
+        server.listen(process.env.PORT || 3000, () => {
+            console.log('🏋 Server listening on port 3000 ...');
+        })
+    )
+    .catch(err => console.log(`🔥 Failed to connect database : ${err.stack}`));
+

@@ -1,6 +1,8 @@
-const { Messages } = require('../../db/models/messages');
+const { Messages } = require('../../db');
 
 const getAllMessages = () =>
-    Messages.findAll();
+    Messages.findAll({
+        attributes: ['timeStamp', 'message']
+    });
 
 module.exports = { getAllMessages };
