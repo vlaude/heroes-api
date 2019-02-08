@@ -11,7 +11,7 @@ const apiRoutes = express.Router();
 
 const apiMessages = require('./messages');
 
-api.use(bodyParser.urlencoded());
+api.use(bodyParser.json());
 // api.use(hpp);
 api.use(helmet());
 

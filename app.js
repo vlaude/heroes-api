@@ -7,6 +7,7 @@ const server = http.Server(api);
 const io = socketIO(server);
 
 const db = require('./db');
+const { createMessage } = require('./routes/controllers/messages');
 
 io.on('connection', socket => {
   console.log('user connected');
@@ -14,6 +15,7 @@ io.on('connection', socket => {
   socket.on('new-message', message => {
     console.log(message);
     io.emit('new-message', message);
+    createMessage(message.timeStamp, message.message);
   });
 });
 
