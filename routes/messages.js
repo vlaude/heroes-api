@@ -16,7 +16,7 @@ apiMessages.post('/', (req, res) =>
         success: false,
         message: 'timeStamp and message required',
       })
-    : createMessage(req.body.timeStamp, req.body.message)
+    : createMessage(req.body.timeStamp, req.body.message, req.body.poster)
         .then(() =>
           res.status(201).send({
             success: true,

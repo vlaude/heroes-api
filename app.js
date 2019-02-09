@@ -15,10 +15,9 @@ io.on('connection', socket => {
   socket.on('new-message', message => {
     console.log(message);
     io.emit('new-message', message);
-    createMessage(message.timeStamp, message.message);
+    createMessage(message.timeStamp, message.message, message.poster);
   });
 });
-
 
 db.sequelize
   .sync()

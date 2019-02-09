@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       timeStamp: DataTypes.DATE,
       message: DataTypes.STRING,
+      poster: DataTypes.STRING,
     },
     {
       paranoid: true,
