@@ -9,6 +9,7 @@ api.use(express.json({ limit: '1mb' }));
 api.use(cors());
 const apiRoutes = express.Router();
 
+const apiUsers = require('./users');
 const apiMessages = require('./messages');
 
 api.use(bodyParser.json());
@@ -19,13 +20,16 @@ apiRoutes.get('/', (req, res) => {
   res.status(200).send({ message: 'Hello from the awesome heroes api !' });
 });
 
-apiRoutes.use('/messages', apiMessages).use((err, req, res, next) => {
-  res.status(403).send({
-    success: false,
-    message: `${err.name} : ${err.message}`,
+apiRoutes
+  .use('/users', apiUsers)
+  .use('/messages', apiMessages)
+  .use((err, req, res, next) => {
+    res.status(403).send({
+      success: false,
+      message: `${err.name} : ${err.message}`,
+    });
+    next();
   });
-  next();
-});
 
 api.use('/api/v1', apiRoutes);
 
