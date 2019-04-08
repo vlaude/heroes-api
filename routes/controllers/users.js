@@ -8,4 +8,20 @@ const createUser = ({ username, email, password }) =>
     hash: password,
   }).then(user => omit(user.get({ plain: true }), Users.excludeAttributes));
 
-module.exports = { createUser };
+const getUserById = ({ id }) =>
+  Users.findOne({
+    where: {
+      id,
+    },
+  }).then(user =>
+    user && !user.deletedAt
+      ? omit(
+          user.get({
+            plain: true,
+          }),
+          Users.excludeAttributes
+        )
+      : Promise.reject(new Error('unknown or deleted user'))
+  );
+
+module.exports = { createUser, getUserById };
