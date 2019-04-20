@@ -36,6 +36,6 @@ const isAuthenticated = (req, res, next) =>
   })(req, res, next);
 
 module.exports = {
-    initAuth,
-    isAuthenticated,
+  initAuth,
+  isAuthenticated,
 };
