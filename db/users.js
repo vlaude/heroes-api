@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   // we don't want to send password even if crypted
-  Users.excludeAttributes = ['hash'];
+  Users.excludeAttributes = ['hash', 'createdAt', 'updatedAt', 'deletedAt'];
 
   Users.prototype.comparePassword = password => {
     return new Promise((resolve, reject) => {
