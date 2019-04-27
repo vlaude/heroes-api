@@ -38,11 +38,11 @@ module.exports = (sequelize, DataTypes) => {
   // we don't want to send password even if crypted
   Users.excludeAttributes = ['hash', 'createdAt', 'updatedAt', 'deletedAt'];
 
-  Users.prototype.comparePassword = password => {
+  Users.prototype.comparePassword = function(password) {
     return new Promise((resolve, reject) => {
       bcrypt.compare(password, this.hash, (err, res) => {
         if (err || !res) {
-          return reject(new Error('INVALID CREDENTIALS'));
+          return reject(new Error('invalid credentials'));
         }
         return resolve();
       });

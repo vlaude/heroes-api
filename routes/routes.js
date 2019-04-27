@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 
 const { initAuth, isAuthenticated } = require('./controllers/auth');
+const apiAuth = require('./auth');
 const apiUsers = require('./users');
 const apiMessages = require('./messages');
 
@@ -24,6 +25,7 @@ apiRoutes.get('/', (req, res) => {
 });
 
 apiRoutes
+  .use('/auth', apiAuth)
   .use('/users', apiUsers)
   .use('/messages', apiMessages)
   .use(isAuthenticated)
