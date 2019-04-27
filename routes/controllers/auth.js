@@ -1,6 +1,8 @@
+const omit = require('lodash.omit');
 const passport = require('passport');
 const { ExtractJwt, Strategy } = require('passport-jwt');
 const { getUserById } = require('./users');
+const { Users } = require('../../db');
 
 const jwtStrategy = opts =>
   new Strategy(opts, (jwtPayload, done) => {
@@ -35,7 +37,28 @@ const isAuthenticated = (req, res, next) =>
     return next();
   })(req, res, next);
 
+const loginUser = ({ username, password }) => {
+  return Users.findOne({
+    where: {
+      username,
+    },
+  }).then(user =>
+    user && !user.deletedAt
+      ? Promise.all([
+          omit(
+            user.get({
+              plain: true,
+            }),
+            Users.excludeAttributes
+          ),
+          user.comparePassword(password),
+        ])
+      : Promise.reject(new Error('unkown or deleted user'))
+  );
+};
+
 module.exports = {
   initAuth,
   isAuthenticated,
+  loginUser,
 };
