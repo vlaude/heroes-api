@@ -4,19 +4,22 @@ module.exports = (sequelize, DataTypes) => {
     {
       timeStamp: DataTypes.DATE,
       message: DataTypes.STRING,
-      poster: DataTypes.STRING,
     },
     {
       paranoid: true,
     }
   );
 
-  // Messages.sync({ force: true }).then(() => {
-  //   return Messages.create({
-  //     timeStamp: new Date(),
-  //     message: 'Hello World!',
-  //   });
-  // });
+  Messages.associate = models => {
+    Messages.belongsTo(models.Users, {
+      foreignKey: {
+        field: 'posterId',
+        targetKey: 'id',
+        allowNull: false,
+      },
+      as: 'poster',
+    });
+  };
 
   return Messages;
 };
