@@ -1,15 +1,23 @@
-const { Messages } = require('../../db');
+const { Messages, Users } = require('../../db');
 
 const getAllMessages = () =>
   Messages.findAll({
-    attributes: ['timeStamp', 'message', 'poster'],
+    attributes: ['timeStamp', 'message'],
+    include: [
+      {
+        model: Users,
+        as: 'poster',
+        attributes: ['id', 'username'],
+      },
+    ],
   });
 
-const createMessage = (timeStamp, message, poster) =>
-  Messages.create({
+const createMessage = (timeStamp, message, poster) => {
+  return Messages.create({
     timeStamp,
     message,
-    poster,
+    posterId: poster.id,
   });
+};
 
 module.exports = { getAllMessages, createMessage };

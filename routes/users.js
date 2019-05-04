@@ -1,5 +1,4 @@
 const express = require('express');
-const jwt = require('jwt-simple');
 const { createUser } = require('./controllers/users');
 
 const apiUsers = express.Router();
@@ -13,7 +12,9 @@ apiUsers.post('/', (req, res) =>
     : createUser(req.body)
         .then(user => {
           res.status(201).send({
-            user,
+            success: true,
+            data: user,
+            message: 'user created',
           });
         })
         .catch(err => {
