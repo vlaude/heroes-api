@@ -30,8 +30,11 @@ apiRoutes.post('/webhook', function(req, res) {
 
   switch (command) {
     case 'push':
+      console.log('Pusher : ' + req.pusher.name);
+      console.log('Pusher : ' + req.pusher.email);
+      console.log('Commits : ' + req.commits);
+      console.log('Sender : ' + req.sender.login);
       res.send('Event push trigger');
-      console.log('Push event');
       break;
 
     default:
