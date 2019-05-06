@@ -40,6 +40,22 @@ apiRoutes
     next();
   });
 
+apiRoutes.post('/webhook', function(req, res) {
+  const command = req.headers['x-github-event'];
+  console.log('Command received : ' + command);
+
+  switch (command) {
+    case 'push':
+      res.send('Event push trigger');
+      console.log('Push event');
+      break;
+
+    default:
+      res.status(400).send('Event not supported : ' + command);
+      console.log('Event not supported : ' + req.headers['X-Github-Event']);
+  }
+});
+
 api.use('/api/v1', apiRoutes);
 
 module.exports = api;
