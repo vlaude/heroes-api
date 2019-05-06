@@ -24,22 +24,6 @@ apiRoutes.get('/', (req, res) => {
   res.status(200).send({ message: 'Hello from the awesome heroes api !' });
 });
 
-apiRoutes
-  .use('/auth', apiAuth)
-  .use('/users', apiUsers)
-  .use('/messages', apiMessages)
-  .use(isAuthenticated)
-  .get('/checkJwt', (req, res) => {
-    res.status(200).send({ message: 'Your token is valid :-)' });
-  })
-  .use((err, req, res, next) => {
-    res.status(403).send({
-      success: false,
-      message: `${err.name} : ${err.message}`,
-    });
-    next();
-  });
-
 apiRoutes.post('/webhook', function(req, res) {
   const command = req.headers['x-github-event'];
   console.log('Command received : ' + command);
@@ -55,6 +39,22 @@ apiRoutes.post('/webhook', function(req, res) {
       console.log('Event not supported : ' + req.headers['X-Github-Event']);
   }
 });
+
+apiRoutes
+  .use('/auth', apiAuth)
+  .use('/users', apiUsers)
+  .use('/messages', apiMessages)
+  .use(isAuthenticated)
+  .get('/checkJwt', (req, res) => {
+    res.status(200).send({ message: 'Your token is valid :-)' });
+  })
+  .use((err, req, res, next) => {
+    res.status(403).send({
+      success: false,
+      message: `${err.name} : ${err.message}`,
+    });
+    next();
+  });
 
 api.use('/api/v1', apiRoutes);
 
