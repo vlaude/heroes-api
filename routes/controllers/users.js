@@ -24,4 +24,20 @@ const getUserById = ({ id }) =>
       : Promise.reject(new Error('unknown or deleted user'))
   );
 
-module.exports = { createUser, getUserById };
+const getUserByUsername = username =>
+  Users.findOne({
+    where: {
+      username,
+    },
+  }).then(user =>
+    user && !user.deletedAt
+      ? omit(
+          user.get({
+            plain: true,
+          }),
+          Users.excludeAttributes
+        )
+      : Promise.reject(new Error('unknown or deleted user'))
+  );
+
+module.exports = { createUser, getUserById, getUserByUsername };
