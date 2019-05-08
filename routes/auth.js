@@ -21,7 +21,8 @@ apiAuth.post('/login', (req, res) =>
           });
         })
         .catch(error => {
-          res.status(500).send({
+          const status = error.message === 'invalid credentials' ? 401 : 500;
+          res.status(status).send({
             success: false,
             message: `${error.name} : ${error.message}`,
           });
