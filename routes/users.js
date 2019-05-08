@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser } = require('./controllers/users');
+const { createUser, getUserByUsername } = require('./controllers/users');
 
 const apiUsers = express.Router();
 
@@ -24,6 +24,14 @@ apiUsers.post('/', (req, res) =>
             message: `${err.name} : ${err.message}`,
           });
         })
+);
+
+apiUsers.get('/:username', (req, res) =>
+  getUserByUsername(req.params.username)
+    .then(user => res.status(200).send(user))
+    .catch(err => {
+      res.status(404).send(`${err.name} : ${err.message}`);
+    })
 );
 
 module.exports = apiUsers;
