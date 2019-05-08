@@ -31,7 +31,7 @@ const isAuthenticated = (req, res, next) =>
       return next(err);
     }
     if (!user) {
-      return next(new Error('UNAUTHORIZED USER'));
+      return next(new Error('unauthorized user'));
     }
     req.user = user;
     return next();

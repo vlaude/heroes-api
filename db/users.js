@@ -42,9 +42,9 @@ module.exports = (sequelize, DataTypes) => {
     return new Promise((resolve, reject) => {
       bcrypt.compare(password, this.hash, (err, res) => {
         if (err || !res) {
-          return reject(new Error('invalid credentials'));
+          reject(new Error('invalid credentials'));
         }
-        return resolve();
+        resolve();
       });
     });
   };
