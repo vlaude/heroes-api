@@ -4,7 +4,7 @@
   "description": "An awesome api for heroes !",
   "main": "src/app.js",
   "scripts": {
-    "start": "env-cmd .env node src/app.js",
+    "start": "env-cmd .env nodemon src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prettier": "node_modules/.bin/prettier --single-quote --trailing-comma es5 --write \"./**/*.js\" "
   },
@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "express-pino-logger": "^4.0.0",
+    "nodemon": "^1.19.1",
     "pino-pretty": "^3.1.0",
     "prettier": "^1.16.4"
   }
