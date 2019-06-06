@@ -6,7 +6,8 @@
   "scripts": {
     "start": "env-cmd .env nodemon src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prettier": "node_modules/.bin/prettier --single-quote --trailing-comma es5 --write \"./**/*.js\" "
+    "prettier": "node_modules/.bin/prettier --single-quote --trailing-comma es5 --write \"./**/*.js\" ",
+    "eslint": "eslint . --fix"
   },
   "author": "Vincent Laude <vincent.laude2@gmail.com>",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "cors": "^2.8.5",
     "env-cmd": "^8.0.2",
     "express": "^4.16.4",
+    "express-pino-logger": "^4.0.0",
     "express-x-hub": "^1.0.4",
     "helmet": "^3.15.0",
     "jwt-simple": "^0.5.5",
@@ -29,11 +31,15 @@
     "passport-jwt": "^4.0.0",
     "pg": "^7.8.0",
     "pg-hstore": "^2.3.2",
+    "pino": "^5.12.6",
     "sequelize": "^5.8.7",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
-    "express-pino-logger": "^4.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.17.3",
     "nodemon": "^1.19.1",
     "pino-pretty": "^3.1.0",
     "prettier": "^1.16.4",
