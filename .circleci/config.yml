@@ -30,4 +30,4 @@ jobs:
           command: npm test
       - run:
           name: eslint
-          command: npm eslint
+          command: npm run eslint
