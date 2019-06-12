@@ -53,6 +53,7 @@ describe('Users controller', () => {
     let user;
     before(async () => {
       user = await User.findOne({ where: { username: 'test2' } });
+      // eslint-disable-next-line no-unused-expressions
       chai.expect(user).to.not.be.null;
     });
     it('Should return a status 200 and the user if user exist', async () => {
@@ -62,6 +63,7 @@ describe('Users controller', () => {
     });
     it('Should return a status 404 if user does not exist', async () => {
       const nonExistingId = 'e02593fd-8f04-4bd7-915c-fc0e5b034a4a';
+      // eslint-disable-next-line no-unused-expressions
       chai.expect(await User.findOne({ where: { id: nonExistingId } })).to.be
         .null;
       const response = await chai
