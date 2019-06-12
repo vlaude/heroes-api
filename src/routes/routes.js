@@ -14,7 +14,9 @@ api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({ extended: true }));
 api.use(helmet());
 api.use(cors());
-api.use(expressPino({ logger }));
+if (process.env.NODE_ENV !== 'test') {
+  api.use(expressPino({ logger }));
+}
 
 apiRoutes.get('/', (req, res) => {
   res.status(200).send({ message: `Hello from my awesome API !` });
