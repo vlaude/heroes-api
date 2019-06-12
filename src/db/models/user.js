@@ -39,16 +39,5 @@ module.exports = (sequelize, DataTypes) => {
     'deletedAt',
   ];
 
-  User.prototype.comparePassword = password => {
-    return new Promise((resolve, reject) => {
-      bcrypt.compare(password, this.hash, (err, res) => {
-        if (err || !res) {
-          return reject(new Error('INVALID CREDENTIALS'));
-        }
-        return resolve();
-      });
-    });
-  };
-
   return User;
 };

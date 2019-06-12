@@ -55,7 +55,9 @@ const getUserById = async (req, res) => {
     const user = await userBuilder.getUserById(req.params.id);
     return user
       ? res.status(200).send(user)
-      : res.status(404).send(`No user found for id : ${req.params.id}`);
+      : res
+          .status(404)
+          .send({ message: `No user found for id : ${req.params.id}` });
   } catch (error) {
     logger.error(error);
     return res.status(500).send(`${error.name} : ${error.message}`);

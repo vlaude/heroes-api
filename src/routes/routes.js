@@ -8,6 +8,8 @@ const logger = require('../util/logger');
 const api = express();
 const apiRoutes = express.Router();
 
+const { isAuthenticated, initAuth } = require('../middlewares/auth.middleware');
+const loginApi = require('./auth.route');
 const userApi = require('./user.route');
 
 api.use(bodyParser.json());
@@ -18,11 +20,26 @@ if (process.env.NODE_ENV !== 'test') {
   api.use(expressPino({ logger }));
 }
 
+initAuth();
+
 apiRoutes.get('/', (req, res) => {
   res.status(200).send({ message: `Hello from my awesome API !` });
 });
 
-apiRoutes.use('/users', userApi);
+apiRoutes
+  .use('/login', loginApi)
+  .use('/users', userApi)
+  .use(isAuthenticated)
+  .get('/checkJwt', (req, res) => {
+    res.status(200).send({ message: `Your token is valid :-)` });
+  })
+  .use((err, req, res, next) => {
+    res.status(403).send({
+      success: false,
+      message: `${err.name} : ${err.message}`,
+    });
+    next();
+  });
 
 api.use('/api/v1', apiRoutes);
 

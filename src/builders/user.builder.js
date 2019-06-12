@@ -15,6 +15,12 @@ const getUserById = id =>
     },
   });
 
+const getUserByUsernameWithHash = username =>
+  User.findOne({
+    where: { username },
+    attributes: { exclude: ['createdAt', 'updatedAt', 'deletedAt'] },
+  });
+
 const createUser = user =>
   User.findOrCreate({
     where: {
@@ -32,4 +38,9 @@ const createUser = user =>
     return [newUser, created];
   });
 
-module.exports = { getAllUsers, createUser, getUserById };
+module.exports = {
+  getAllUsers,
+  createUser,
+  getUserById,
+  getUserByUsernameWithHash,
+};
