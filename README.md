@@ -1,6 +1,7 @@
 # heroes-api
 
 [![CircleCI](https://circleci.com/gh/vlaude/heroes-api/tree/feat%2Fgithub.svg?style=svg)](https://circleci.com/gh/vlaude/heroes-api/tree/feat%2Fgithub)
+[![Known Vulnerabilities](https://snyk.io//test/github/vlaude/heroes-api/badge.svg?targetFile=package.json)](https://snyk.io//test/github/vlaude/heroes-api?targetFile=package.json)
 
 Welcome on my awesome Heroes API.
 
