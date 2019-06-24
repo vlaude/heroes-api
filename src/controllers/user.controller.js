@@ -1,5 +1,6 @@
 const Ajv = require('ajv');
 
+const config = require('../config');
 const logger = require('../util/logger');
 const userBuilder = require('../builders/user.builder');
 
@@ -53,14 +54,21 @@ const createUser = async (req, res) => {
 const getUserById = async (req, res) => {
   try {
     const user = await userBuilder.getUserById(req.params.id);
-    return user
-      ? res.status(200).send(user)
-      : res
-          .status(404)
-          .send({ message: `No user found for id : ${req.params.id}` });
+    if (user) {
+      // A simple user is not authorized to get another one.
+      if (req.user.id !== user.id && req.user.role < config.userRoles.ADMIN) {
+        res.sendStatus(403);
+      } else {
+        res.status(200).send(user);
+      }
+    } else {
+      res
+        .status(404)
+        .send({ message: `No user found for id : ${req.params.id}` });
+    }
   } catch (error) {
     logger.error(error);
-    return res.status(500).send(`${error.name} : ${error.message}`);
+    res.status(500).send(`${error.name} : ${error.message}`);
   }
 };
 

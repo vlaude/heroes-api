@@ -17,8 +17,9 @@ module.exports = {
         type: Sequelize.STRING,
       },
       role: {
-        type: Sequelize.ENUM,
-        values: ['USER', 'ADMIN', 'SUPADMIN'],
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        defaultValue: 1,
       },
       createdAt: {
         allowNull: false,
@@ -26,11 +27,6 @@ module.exports = {
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-      },
-      deletedAt: {
-        allowNull: true,
-        defaultValue: null,
         type: Sequelize.DATE,
       },
     });

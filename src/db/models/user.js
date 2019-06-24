@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
 
+const config = require('../../config');
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
@@ -14,8 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
     },
     role: {
-      type: DataTypes.ENUM,
-      values: ['USER', 'ADMIN', 'SUPADMIN'],
+      type: DataTypes.INTEGER,
+      defaultValue: config.userRoles.USER,
+      allowNull: false,
     },
     hash: {
       type: DataTypes.STRING,
@@ -31,13 +34,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   // we don't want to send password even if crypted
-  User.excludeAttributes = [
-    'hash',
-    'role',
-    'createdAt',
-    'updatedAt',
-    'deletedAt',
-  ];
+  User.excludeAttributes = ['hash', 'createdAt', 'updatedAt'];
 
   return User;
 };

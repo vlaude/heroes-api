@@ -18,7 +18,7 @@ const getUserById = id =>
 const getUserByUsernameWithHash = username =>
   User.findOne({
     where: { username },
-    attributes: { exclude: ['createdAt', 'updatedAt', 'deletedAt'] },
+    attributes: { exclude: ['createdAt', 'updatedAt'] },
   });
 
 const createUser = user =>

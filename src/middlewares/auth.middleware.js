@@ -25,17 +25,29 @@ const initAuth = () => {
   passport.use(jwtStrategy(opts));
 };
 
+// Middleware that check jwt on Bearer authorization.
 const isAuthenticated = (req, res, next) => {
   passport.authenticate('jwt', { session: false }, (err, user) => {
     if (err) {
       return next(err);
     }
     if (!user) {
-      return res.status(403).send('access forbidden');
+      return res.sendStatus(403);
     }
     req.user = user;
     return next();
   })(req, res, next);
 };
 
-module.exports = { initAuth, isAuthenticated };
+// Middleware that allow resources access by role.
+const allowOnly = (accessLevel, done) => {
+  return (req, res) => {
+    if (accessLevel > req.user.role) {
+      res.sendStatus(403);
+      return;
+    }
+    done(req, res);
+  };
+};
+
+module.exports = { initAuth, isAuthenticated, allowOnly };
