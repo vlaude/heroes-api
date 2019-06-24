@@ -5,7 +5,7 @@ const { getUserById } = require('../builders/user.builder');
 // Setting up passport strategy
 const jwtStrategy = opts =>
   new Strategy(opts, (jwtPayload, done) => {
-    getUserById(jwtPayload)
+    getUserById(jwtPayload.sub)
       .then(user => {
         if (user) {
           done(null, user);
@@ -31,7 +31,7 @@ const isAuthenticated = (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      return next(new Error('unauthorized user'));
+      return res.status(403).send('access forbidden');
     }
     req.user = user;
     return next();

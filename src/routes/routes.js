@@ -9,8 +9,9 @@ const api = express();
 const apiRoutes = express.Router();
 
 const { isAuthenticated, initAuth } = require('../middlewares/auth.middleware');
-const loginApi = require('./auth.route');
-const userApi = require('./user.route');
+const apiLogin = require('./auth.route');
+const { apiUser } = require('./user.route');
+const { apiUserProtected } = require('./user.route');
 
 api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({ extended: true }));
@@ -27,19 +28,10 @@ apiRoutes.get('/', (req, res) => {
 });
 
 apiRoutes
-  .use('/login', loginApi)
-  .use('/users', userApi)
+  .use('/login', apiLogin)
+  .use('/users', apiUser)
   .use(isAuthenticated)
-  .get('/checkJwt', (req, res) => {
-    res.status(200).send({ message: `Your token is valid :-)` });
-  })
-  .use((err, req, res, next) => {
-    res.status(403).send({
-      success: false,
-      message: `${err.name} : ${err.message}`,
-    });
-    next();
-  });
+  .use('/users', apiUserProtected);
 
 api.use('/api/v1', apiRoutes);
 

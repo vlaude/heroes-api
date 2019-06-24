@@ -16,7 +16,7 @@ const loginUser = async (req, res) => {
         if (err || !result) {
           res.status(401).send('username and password missmatch');
         } else {
-          const token = jwt.encode({ id: user.id }, process.env.JWT_SECRET);
+          const token = jwt.encode({ sub: user.id }, process.env.JWT_SECRET);
           res.status(201).send(token);
         }
       });
