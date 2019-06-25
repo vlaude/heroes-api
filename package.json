@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "start": "env-cmd .env nodemon src/app.js",
-    "test": "mocha ./src/tests --recursive",
+    "test": "nyc --reporter=text-lcov mocha ./src/tests --recursive | coveralls",
     "prettier": "node_modules/.bin/prettier --single-quote --trailing-comma es5 --write \"./src/./**/*.js\" ",
     "eslint": "eslint ./src"
   },
@@ -41,12 +41,14 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "coveralls": "^3.0.4",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-import": "^2.17.3",
     "mocha": "^6.1.4",
     "nodemon": "^1.19.1",
+    "nyc": "^14.1.1",
     "pino-pretty": "^3.1.0",
     "prettier": "^1.16.4",
     "sequelize-cli": "^5.5.0"
