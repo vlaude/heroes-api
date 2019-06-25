@@ -5,7 +5,8 @@
   "main": "src/app.js",
   "scripts": {
     "start": "env-cmd .env nodemon src/app.js",
-    "test": "nyc --reporter=text-lcov mocha ./src/tests --recursive | coveralls",
+    "test": "nyc --reporter=text --reporter=lcov mocha ./src/tests --recursive",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
     "prettier": "node_modules/.bin/prettier --single-quote --trailing-comma es5 --write \"./src/./**/*.js\" ",
     "eslint": "eslint ./src"
   },
