@@ -12,7 +12,7 @@ module.exports = {
       {
         id: '3f1994bd-6df7-438a-874c-b835687306f7',
         username: 'test',
-        hash: '$2b$12$hJTbreVMVAci9QHZDe0lSOM90M0z7QIHbR7JBWUxMwFaOM0Vq7JCm',
+        hash: '$2b$12$htEIsRHl3flc7tQokQNMxe5Gek9Lrtco5xMr5k6rVWidQdpZG9c/O',
         role: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
