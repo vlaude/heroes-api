@@ -16,6 +16,9 @@
     "node": "v10.16.0",
     "npm": "6.9.0"
   },
+  "nyc": {
+    "exclude": "**/config.js"
+  },
   "dependencies": {
     "ajv": "^6.10.0",
     "bcrypt": "^3.0.6",
