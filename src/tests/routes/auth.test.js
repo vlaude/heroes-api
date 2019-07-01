@@ -38,6 +38,7 @@ describe('Auth controller', () => {
           password: 'test1234',
         });
       response.should.have.status(201);
+      // eslint-disable-next-line no-unused-expressions
       response.text.should.to.exist;
     });
   });
