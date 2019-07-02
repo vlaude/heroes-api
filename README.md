@@ -5,6 +5,6 @@
 [![Known Vulnerabilities](https://snyk.io//test/github/vlaude/heroes-api/badge.svg?targetFile=package.json)](https://snyk.io//test/github/vlaude/heroes-api?targetFile=package.json)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-Welcome on my awesome Heroes API.
+Welcome on my awesome Heroes API. 
 
 <img src="https://avatars3.githubusercontent.com/u/10251060?s=200&v=4.png" width="50"> Check the doc on [Postman](https://documenter.getpostman.com/view/6830208/S1Zxapa8?version=latest).
