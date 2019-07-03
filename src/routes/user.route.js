@@ -9,10 +9,7 @@ const apiUserProtected = express.Router();
 
 apiUser.post('/', userController.createUser);
 
-apiUserProtected.get(
-  '/',
-  allowOnly(config.accessLevels.ADMIN, userController.getAllUsers)
-);
+apiUserProtected.get('/', allowOnly(config.accessLevels.ADMIN, userController.getAllUsers));
 apiUserProtected.get('/:id', userController.getUserById);
 
 module.exports = { apiUser, apiUserProtected };

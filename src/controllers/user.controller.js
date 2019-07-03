@@ -7,69 +7,62 @@ const userBuilder = require('../builders/user.builder');
 const ajv = new Ajv({ allErrors: true });
 
 const userSchema = {
-  type: 'object',
-  properties: {
-    username: {
-      type: 'string',
-      minLength: 4,
-      maxLength: 20,
+    type: 'object',
+    properties: {
+        username: {
+            type: 'string',
+            minLength: 4,
+            maxLength: 20,
+        },
+        hash: {
+            type: 'string',
+            minLength: 8,
+        },
     },
-    hash: {
-      type: 'string',
-      minLength: 8,
-    },
-  },
-  required: ['username', 'hash'],
+    required: ['username', 'hash'],
 };
 
 const getAllUsers = async (req, res) => {
-  const users = await userBuilder.getAllUsers();
-  res.status(200).send(users);
+    const users = await userBuilder.getAllUsers();
+    res.status(200).send(users);
 };
 
 const createUser = async (req, res) => {
-  const validate = ajv.compile(userSchema);
-  const isValid = validate(req.body);
-
-  if (isValid) {
-    try {
-      const newUser = await userBuilder.createUser(req.body);
-      const userAlreadyExist = !newUser[1];
-      return userAlreadyExist
-        ? res.status(409).send({
-            message: `A user with the username ${
-              newUser[0].username
-            } already exist`,
-          })
-        : res.status(201).send(newUser[0]);
-    } catch (error) {
-      logger.error(error);
-      return res.status(500).send(`${error.name} : ${error.message}`);
+    const validate = ajv.compile(userSchema);
+    const isValid = validate(req.body);
+    if (isValid) {
+        try {
+            const newUser = await userBuilder.createUser(req.body);
+            const userAlreadyExist = !newUser[1];
+            return userAlreadyExist
+                ? res.status(409).send({ message: `A user with the username ${newUser[0].username} already exist` })
+                : res.status(201).send(newUser[0]);
+        } catch (error) {
+            logger.error(error);
+            return res.status(500).send(`${error.name} : ${error.message}`);
+        }
+    } else {
+        return res.status(400).send({ error: validate.errors });
     }
-  } else {
-    return res.status(400).send({ error: validate.errors });
-  }
 };
 
 const getUserById = async (req, res) => {
-  try {
-    const user = await userBuilder.getUserById(req.params.id);
-    if (user) {
-      // A simple user is not authorized to get another one.
-      if (req.user.id !== user.id && req.user.role < config.userRoles.ADMIN) {
-        res.sendStatus(403);
-      } else {
-        res.status(200).send(user);
-      }
-    } else {
-      res
-        .status(404)
-        .send({ message: `No user found for id : ${req.params.id}` });
+    try {
+        const user = await userBuilder.getUserById(req.params.id);
+        if (user) {
+            // A simple user is not authorized to get another one.
+            if (req.user.id !== user.id && req.user.role < config.userRoles.ADMIN) {
+                res.sendStatus(403);
+            } else {
+                res.status(200).send(user);
+            }
+        } else {
+            res.status(404).send({ message: `No user found for id : ${req.params.id}` });
+        }
+    } catch (error) {
+        logger.error(error);
+        res.status(500).send(`${error.name} : ${error.message}`);
     }
-  } catch (error) {
-    logger.error(error);
-    res.status(500).send(`${error.name} : ${error.message}`);
-  }
 };
 
 module.exports = { getAllUsers, createUser, getUserById };

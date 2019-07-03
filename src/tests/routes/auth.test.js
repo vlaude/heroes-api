@@ -11,35 +11,35 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('Auth controller', () => {
-  describe('Login', () => {
-    it('Should return a status 400 if no username or password in body', async () => {
-      const response = await chai
-        .request(api)
-        .post(`/api/v1/login`)
-        .send({});
-      response.should.have.status(400);
-    });
-    it('Should return a status 401 if username and password missmatch', async () => {
-      const response = await chai
-        .request(api)
-        .post(`/api/v1/login`)
-        .send({
-          username: 'test',
-          password: 'wrongpassword1234@!',
+    describe('Login', () => {
+        it('Should return a status 400 if no username or password in body', async () => {
+            const response = await chai
+                .request(api)
+                .post(`/api/v1/login`)
+                .send({});
+            response.should.have.status(400);
         });
-      response.should.have.status(401);
-    });
-    it('Should return a status 201 and a token if authentication is a success', async () => {
-      const response = await chai
-        .request(api)
-        .post(`/api/v1/login`)
-        .send({
-          username: 'test',
-          password: 'test1234',
+        it('Should return a status 401 if username and password missmatch', async () => {
+            const response = await chai
+                .request(api)
+                .post(`/api/v1/login`)
+                .send({
+                    username: 'test',
+                    password: 'wrongpassword1234@!',
+                });
+            response.should.have.status(401);
         });
-      response.should.have.status(201);
-      // eslint-disable-next-line no-unused-expressions
-      response.text.should.to.exist;
+        it('Should return a status 201 and a token if authentication is a success', async () => {
+            const response = await chai
+                .request(api)
+                .post(`/api/v1/login`)
+                .send({
+                    username: 'test',
+                    password: 'test1234',
+                });
+            response.should.have.status(201);
+            // eslint-disable-next-line no-unused-expressions
+            response.text.should.to.exist;
+        });
     });
-  });
 });

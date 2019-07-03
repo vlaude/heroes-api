@@ -1,46 +1,46 @@
 const { User } = require('../db/models');
 
 const getAllUsers = () =>
-  User.findAll({
-    attributes: {
-      exclude: User.excludeAttributes,
-    },
-  });
+    User.findAll({
+        attributes: {
+            exclude: User.excludeAttributes,
+        },
+    });
 
 const getUserById = id =>
-  User.findOne({
-    where: { id },
-    attributes: {
-      exclude: User.excludeAttributes,
-    },
-  });
+    User.findOne({
+        where: { id },
+        attributes: {
+            exclude: User.excludeAttributes,
+        },
+    });
 
 const getUserByUsernameWithHash = username =>
-  User.findOne({
-    where: { username },
-    attributes: { exclude: ['createdAt', 'updatedAt'] },
-  });
+    User.findOne({
+        where: { username },
+        attributes: { exclude: ['createdAt', 'updatedAt'] },
+    });
 
 const createUser = user =>
-  User.findOrCreate({
-    where: {
-      username: user.username,
-    },
-    defaults: user,
-  }).spread((newUser, created) => {
-    if (created) {
-      const newUserMinified = newUser.get({ plain: true });
-      User.excludeAttributes.forEach(att => {
-        delete newUserMinified[att];
-      });
-      return [newUserMinified, created];
-    }
-    return [newUser, created];
-  });
+    User.findOrCreate({
+        where: {
+            username: user.username,
+        },
+        defaults: user,
+    }).spread((newUser, created) => {
+        if (created) {
+            const newUserMinified = newUser.get({ plain: true });
+            User.excludeAttributes.forEach(att => {
+                delete newUserMinified[att];
+            });
+            return [newUserMinified, created];
+        }
+        return [newUser, created];
+    });
 
 module.exports = {
-  getAllUsers,
-  createUser,
-  getUserById,
-  getUserByUsernameWithHash,
+    getAllUsers,
+    createUser,
+    getUserById,
+    getUserByUsernameWithHash,
 };

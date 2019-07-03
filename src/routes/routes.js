@@ -18,20 +18,20 @@ api.use(bodyParser.urlencoded({ extended: true }));
 api.use(helmet());
 api.use(cors());
 if (process.env.NODE_ENV !== 'test') {
-  api.use(expressPino({ logger }));
+    api.use(expressPino({ logger }));
 }
 
 initAuth();
 
 apiRoutes.get('/', (req, res) => {
-  res.status(200).send({ message: `Hello from my awesome API !` });
+    res.status(200).send({ message: `Hello from my awesome API !` });
 });
 
 apiRoutes
-  .use('/login', apiLogin)
-  .use('/users', apiUser)
-  .use(isAuthenticated)
-  .use('/users', apiUserProtected);
+    .use('/login', apiLogin)
+    .use('/users', apiUser)
+    .use(isAuthenticated)
+    .use('/users', apiUserProtected);
 
 api.use('/api/v1', apiRoutes);
 
