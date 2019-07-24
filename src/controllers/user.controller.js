@@ -14,12 +14,12 @@ const userSchema = {
             minLength: 4,
             maxLength: 20,
         },
-        hash: {
+        password: {
             type: 'string',
             minLength: 8,
         },
     },
-    required: ['username', 'hash'],
+    required: ['username', 'password'],
 };
 
 const getAllUsers = async (req, res) => {
@@ -32,7 +32,8 @@ const createUser = async (req, res) => {
     const isValid = validate(req.body);
     if (isValid) {
         try {
-            const newUser = await userBuilder.createUser(req.body);
+            const model = { username: req.body.username, hash: req.body.password };
+            const newUser = await userBuilder.createUser(model);
             const userAlreadyExist = !newUser[1];
             return userAlreadyExist
                 ? res.status(409).send({ message: `A user with the username ${newUser[0].username} already exist` })

@@ -30,7 +30,10 @@ module.exports = (sequelize, DataTypes) => {
         },
     });
     User.associate = models => {
-        // associations can be defined here
+        User.belongsToMany(models.Room, {
+            through: 'RoomMembers',
+            foreignKey: 'userId',
+        });
     };
 
     // we don't want to send password even if crypted

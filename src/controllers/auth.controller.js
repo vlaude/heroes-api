@@ -23,7 +23,10 @@ const loginUser = async (req, res) => {
                         { sub: user.id, role: user.role || config.userRoles.USER },
                         process.env.JWT_SECRET
                     );
-                    res.status(201).send(token);
+                    res.status(201).send({
+                        profile: user,
+                        token,
+                    });
                 }
             });
         }

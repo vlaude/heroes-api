@@ -13,6 +13,7 @@ const apiLogin = require('./auth.route');
 const { apiUser } = require('./user.route');
 const { apiUserProtected } = require('./user.route');
 const { apiMessageProtected } = require('./message.route');
+const { apiRoom } = require('./room.route');
 
 api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({ extended: true }));
@@ -31,6 +32,7 @@ apiRoutes.get('/', (req, res) => {
 apiRoutes
     .use('/login', apiLogin)
     .use('/users', apiUser)
+    .use('/rooms', apiRoom)
     .use(isAuthenticated)
     .use('/users', apiUserProtected)
     .use('/messages', apiMessageProtected);

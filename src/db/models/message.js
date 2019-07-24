@@ -23,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
         Message.belongsTo(models.User, {
             as: 'poster',
         });
+        Message.belongsTo(models.Room, {
+            as: 'room',
+        });
     };
 
     Message.excludeAttributes = ['createdAt', 'updatedAt', 'posterId'];
