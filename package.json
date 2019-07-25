@@ -1,70 +1,74 @@
 {
-  "name": "heroes-api",
-  "version": "1.0.0",
-  "description": "An awesome api for heroes !",
-  "main": "src/app.js",
-  "scripts": {
-    "start": "env-cmd .env nodemon src/app.js",
-    "test": "nyc --reporter=text --reporter=lcov mocha ./src/tests --recursive",
-    "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "prettier": "prettier --config .prettierrc --write src/**/*.{ts,js,html,css}",
-    "eslint": "eslint ./src"
-  },
-  "author": "Vincent Laude <vincent.laude2@gmail.com>",
-  "license": "ISC",
-  "engines": {
-    "node": "v10.16.0",
-    "npm": "6.9.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
+    "name": "heroes-api",
+    "version": "1.0.0",
+    "description": "An awesome api for heroes !",
+    "main": "src/app.js",
+    "scripts": {
+        "start": "node src/app.js",
+        "dev": "env-cmd .env nodemon src/app.js",
+        "test": "nyc --reporter=text --reporter=lcov mocha ./src/tests --recursive",
+        "coveralls": "cat ./coverage/lcov.info | coveralls",
+        "prettier": "prettier --config .prettierrc --write src/**/*.{ts,js,html,css}",
+        "eslint": "eslint ./src"
+    },
+    "author": "Vincent Laude <vincent.laude2@gmail.com>",
+    "license": "ISC",
+    "engines": {
+        "node": "v10.16.0",
+        "npm": "6.9.0"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "src/**/*.{ts,js,html,css}": [
+            "prettier --config .prettierrc --write",
+            "git add"
+        ]
+    },
+    "nyc": {
+        "exclude": "**/config.js"
+    },
+    "dependencies": {
+        "ajv": "^6.10.0",
+        "bcrypt": "^3.0.6",
+        "body-parser": "^1.18.3",
+        "cors": "^2.8.5",
+        "env-cmd": "^8.0.2",
+        "express": "^4.16.4",
+        "express-pino-logger": "^4.0.0",
+        "express-x-hub": "^1.0.4",
+        "helmet": "^3.15.0",
+        "jwt-simple": "^0.5.6",
+        "lodash.omit": "^4.5.0",
+        "mysql2": "^1.6.5",
+        "node-emoji": "^1.10.0",
+        "node-uuid": "^1.4.8",
+        "passport": "^0.4.0",
+        "passport-jwt": "^4.0.0",
+        "pg": "^7.8.0",
+        "pg-hstore": "^2.3.2",
+        "pino": "^5.12.6",
+        "sequelize": "^5.8.11",
+        "socket.io": "^2.2.0"
+    },
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "chai-http": "^4.3.0",
+        "coveralls": "^3.0.4",
+        "eslint": "^5.16.0",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-config-prettier": "^4.3.0",
+        "eslint-plugin-import": "^2.17.3",
+        "husky": "^3.0.0",
+        "lint-staged": "^9.0.2",
+        "mocha": "^6.1.4",
+        "nodemon": "^1.19.1",
+        "nyc": "^14.1.1",
+        "pino-pretty": "^3.1.0",
+        "prettier": "^1.16.4",
+        "sequelize-cli": "^5.5.0"
     }
-  },
-  "lint-staged": {
-    "src/**/*.{ts,js,html,css}": ["prettier --config .prettierrc --write", "git add"]
-  },
-  "nyc": {
-    "exclude": "**/config.js"
-  },
-  "dependencies": {
-    "ajv": "^6.10.0",
-    "bcrypt": "^3.0.6",
-    "body-parser": "^1.18.3",
-    "cors": "^2.8.5",
-    "env-cmd": "^8.0.2",
-    "express": "^4.16.4",
-    "express-pino-logger": "^4.0.0",
-    "express-x-hub": "^1.0.4",
-    "helmet": "^3.15.0",
-    "jwt-simple": "^0.5.6",
-    "lodash.omit": "^4.5.0",
-    "mysql2": "^1.6.5",
-    "node-emoji": "^1.10.0",
-    "node-uuid": "^1.4.8",
-    "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0",
-    "pg": "^7.8.0",
-    "pg-hstore": "^2.3.2",
-    "pino": "^5.12.6",
-    "sequelize": "^5.8.11",
-    "socket.io": "^2.2.0"
-  },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "coveralls": "^3.0.4",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^4.3.0",
-    "eslint-plugin-import": "^2.17.3",
-    "husky": "^3.0.0",
-    "lint-staged": "^9.0.2",
-    "mocha": "^6.1.4",
-    "nodemon": "^1.19.1",
-    "nyc": "^14.1.1",
-    "pino-pretty": "^3.1.0",
-    "prettier": "^1.16.4",
-    "sequelize-cli": "^5.5.0"
-  }
 }
