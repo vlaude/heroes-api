@@ -19,7 +19,7 @@ api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({ extended: true }));
 api.use(helmet());
 api.use(cors());
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'production') {
     api.use(expressPino({ logger }));
 }
 
