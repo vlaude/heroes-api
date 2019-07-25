@@ -1,24 +1,25 @@
 {
-  "development": {
-    "username": "user",
-    "password": "password",
-    "database": "heroes",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  },
-  "test": {
-    "username": "user",
-    "password": "password",
-    "database": "heroes",
-    "host": "127.0.0.1",
-    "dialect": "postgres",
-    "logging": false
-  },
-  "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  }
+    "development": {
+        "username": "user",
+        "password": "password",
+        "database": "heroes",
+        "host": "127.0.0.1",
+        "dialect": "postgres"
+    },
+    "test": {
+        "username": "user",
+        "password": "password",
+        "database": "heroes",
+        "host": "127.0.0.1",
+        "dialect": "postgres",
+        "logging": false
+    },
+    "production": {
+        "username": "lyixshhpsbdhsj",
+        "password": "fa99767cc0b6d253123362d4313758a213fdf3f13a9cc20b8774622305ad3c5c",
+        "database": "deme4sq2mm78t7",
+        "host": "ec2-54-247-170-5.eu-west-1.compute.amazonaws.com",
+        "dialect": "postgres",
+        "logging": false
+    }
 }
