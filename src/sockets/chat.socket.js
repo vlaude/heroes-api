@@ -4,6 +4,7 @@ const roomBuilder = require('../builders/room.builder');
 
 const initChat = io => {
     const clients = {};
+    const typers = {};
 
     io.of('/chat').on('connection', socket => {
         const username = socket.handshake.query.username;
@@ -24,6 +25,12 @@ const initChat = io => {
                     const roomEntity = await roomBuilder.getRoomById(msg.room.id);
                     messageBuilder.createMessage(msg.content, poster, roomEntity);
                 }
+            });
+
+            socket.on('is-typing', typer => {
+                console.log(`${typer.username} is typing on ${typer.room.name}`);
+                typers[typer.username] = typer.room;
+                socket.in(room).emit('is-typing', typer);
             });
         });
 
