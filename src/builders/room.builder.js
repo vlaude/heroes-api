@@ -1,6 +1,18 @@
-const { Room } = require('../db/models');
+const { Room, Message } = require('../db/models');
 
-const getAllRooms = () => Room.findAll({ attributes: { exclude: Room.excludeAttributes } });
+const getAllRooms = () =>
+    Room.findAll({
+        attributes: { exclude: Room.excludeAttributes },
+        include: [
+            {
+                model: Message,
+                as: 'messages',
+                attributes: {
+                    exclude: Message.excludeAttributes,
+                },
+            },
+        ],
+    });
 
 const createRoom = room =>
     Room.findOrCreate({

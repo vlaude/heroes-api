@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
             as: 'members',
             foreignKey: 'roomId',
         });
+        Room.hasMany(models.Message, { as: 'messages', foreignKey: 'roomId' });
     };
 
     Room.excludeAttributes = ['createdAt', 'updatedAt'];

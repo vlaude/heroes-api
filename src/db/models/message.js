@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         });
         Message.belongsTo(models.Room, {
             as: 'room',
+            foreignKey: 'roomId',
         });
     };
 
