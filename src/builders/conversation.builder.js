@@ -6,8 +6,8 @@ const createConversation = (user, room) => {
             const conversation = await Conversation.create({
                 isRead: false,
             });
-            await conversation.setUser(user);
-            await conversation.setRoom(room);
+            await conversation.setUser(user.id);
+            await conversation.setRoom(room.id);
             resolve(conversation);
         } catch (error) {
             reject(error);

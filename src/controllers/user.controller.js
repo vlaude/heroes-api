@@ -3,6 +3,7 @@ const Ajv = require('ajv');
 const config = require('../config');
 const logger = require('../util/logger');
 const userBuilder = require('../builders/user.builder');
+const convService = require('../services/conversation.service');
 
 const ajv = new Ajv({ allErrors: true });
 
@@ -34,6 +35,7 @@ const createUser = async (req, res) => {
         try {
             const model = { username: req.body.username, hash: req.body.password };
             const newUser = await userBuilder.createUser(model);
+            const convs = await convService.createConvsForUserAndPublicRooms(newUser[0]);
             const userAlreadyExist = !newUser[1];
             return userAlreadyExist
                 ? res.status(409).send({ message: `A user with the username ${newUser[0].username} already exist` })
