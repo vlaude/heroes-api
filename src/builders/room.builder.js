@@ -1,4 +1,4 @@
-const { Room, Message } = require('../db/models');
+const { Room, Message, User } = require('../db/models');
 
 const getAllRooms = () =>
     Room.findAll({
@@ -10,6 +10,15 @@ const getAllRooms = () =>
                 attributes: {
                     exclude: Message.excludeAttributes,
                 },
+                include: [
+                    {
+                        model: User,
+                        as: 'poster',
+                        attributes: {
+                            exclude: User.excludeAttributes,
+                        },
+                    },
+                ],
             },
         ],
     });
