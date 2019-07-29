@@ -11,5 +11,6 @@ apiUser.post('/', userController.createUser);
 
 apiUserProtected.get('/', allowOnly(config.accessLevels.ADMIN, userController.getAllUsers));
 apiUserProtected.get('/:id', userController.getUserById);
+apiUserProtected.get('/:id/conversations', userController.getUserConversations);
 
 module.exports = { apiUser, apiUserProtected };

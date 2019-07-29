@@ -11,5 +11,8 @@ module.exports = (sequelize, DataTypes) => {
         Conversation.belongsTo(models.User, { as: 'user' });
         Conversation.belongsTo(models.Room, { as: 'room' });
     };
+
+    Conversation.excludeAttributes = ['createdAt', 'updatedAt'];
+
     return Conversation;
 };

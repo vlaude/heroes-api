@@ -3,6 +3,7 @@ const Ajv = require('ajv');
 const config = require('../config');
 const logger = require('../util/logger');
 const userBuilder = require('../builders/user.builder');
+const convBuilder = require('../builders/conversation.builder');
 const convService = require('../services/conversation.service');
 
 const ajv = new Ajv({ allErrors: true });
@@ -68,4 +69,18 @@ const getUserById = async (req, res) => {
     }
 };
 
-module.exports = { getAllUsers, createUser, getUserById };
+const getUserConversations = async (req, res) => {
+    try {
+        if (!req.params.id) {
+            res.status(400).send('Missing userId param');
+        } else {
+            const convs = await convBuilder.getConversationsByUserId(req.params.id);
+            res.status(200).send(convs);
+        }
+    } catch (error) {
+        logger.error(error);
+        res.status(500).send(`${error.name} : ${error.message}`);
+    }
+};
+
+module.exports = { getAllUsers, createUser, getUserById, getUserConversations };

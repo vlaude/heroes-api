@@ -15,4 +15,26 @@ const createConversation = (user, room) => {
     });
 };
 
-module.exports = { createConversation };
+const getConversationsByUserId = userId =>
+    Conversation.findAll({
+        where: { userId },
+        attributes: {
+            exclude: Conversation.excludeAttributes,
+        },
+    });
+
+const markAsRead = conv => {
+    Conversation.update({
+        isRead: true,
+        where: { id: conv.id },
+    });
+};
+
+const markAsNoread = conv => {
+    Conversation.update({
+        isRead: false,
+        where: { id: conv.id },
+    });
+};
+
+module.exports = { createConversation, getConversationsByUserId, markAsRead, markAsNoread };
