@@ -23,18 +23,24 @@ const getConversationsByUserId = userId =>
         },
     });
 
+const getConversationByRoomId = roomId =>
+    Conversation.findAll({
+        where: { roomId },
+        attributes: {
+            exclude: Conversation.excludeAttributes,
+        },
+    });
+
 const markAsRead = conv => {
-    Conversation.update({
+    conv.update({
         isRead: true,
-        where: { id: conv.id },
     });
 };
 
 const markAsNoread = conv => {
-    Conversation.update({
+    conv.update({
         isRead: false,
-        where: { id: conv.id },
     });
 };
 
-module.exports = { createConversation, getConversationsByUserId, markAsRead, markAsNoread };
+module.exports = { createConversation, getConversationsByUserId, getConversationByRoomId, markAsRead, markAsNoread };
