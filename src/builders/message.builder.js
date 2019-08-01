@@ -1,10 +1,11 @@
 const { Message, User, Room } = require('../db/models');
 
-const createMessage = (content, poster, room) => {
+const createMessage = (content, attachment, poster, room) => {
     return new Promise(async (resolve, reject) => {
         try {
             const message = await Message.create({
                 content,
+                attachment,
                 date: new Date(),
             });
             await message.setPoster(poster);

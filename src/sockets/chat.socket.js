@@ -23,7 +23,7 @@ const initChat = io => {
                     const poster = await userBuilder.getUserById(msg.poster.id);
                     const roomEntity = await roomBuilder.getRoomById(msg.room.id);
                     // On persiste le message.
-                    messageBuilder.createMessage(msg.content, poster, roomEntity);
+                    messageBuilder.createMessage(msg.content, msg.attachment, poster, roomEntity);
                     // On notifie les autres users de la room.
                     convService.markAllConvAsNoreadByRoom(msg.poster.id, msg.room.id);
                 }
