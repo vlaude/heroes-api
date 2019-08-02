@@ -1,4 +1,4 @@
-const { User } = require('../db/models');
+const { User, Room } = require('../db/models');
 
 const getAllUsers = () =>
     User.findAll({
@@ -12,6 +12,14 @@ const getUserById = id =>
         where: { id },
         attributes: {
             exclude: User.excludeAttributes,
+        },
+        include: {
+            model: Room,
+            as: 'Rooms',
+            attributes: {
+                exclude: Room.excludeAttributes,
+            },
+            through: { attributes: [] },
         },
     });
 

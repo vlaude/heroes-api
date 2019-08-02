@@ -7,7 +7,7 @@ const roomBuilder = require('../builders/room.builder');
  * @returns {Promise<any[]>}
  */
 const createConvsForUserAndPublicRooms = async user => {
-    const publicRooms = await roomBuilder.getAllRooms();
+    const publicRooms = await roomBuilder.getAllPublicRooms();
     const promisesConv = [];
     publicRooms.forEach(room => {
         promisesConv.push(convBuilder.createConversation(user, room));

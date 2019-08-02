@@ -7,8 +7,9 @@ const { allowOnly } = require('../middlewares/auth.middleware');
 const apiRoom = express.Router();
 const apiRoomProtected = express.Router();
 
-// TODO Make these routes protected
-apiRoom.get('/', roomController.getAllRooms);
-apiRoom.post('/', roomController.createRoom);
+apiRoomProtected.get('/', roomController.getAllJoinedRooms);
+apiRoomProtected.post('/', roomController.createRoom);
+apiRoomProtected.get('/public', roomController.getAllRooms);
+apiRoomProtected.post('/public', allowOnly(config.accessLevels.ADMIN, roomController.createPublicRoom));
 
 module.exports = { apiRoom, apiRoomProtected };

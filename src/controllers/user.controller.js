@@ -35,6 +35,7 @@ const createUser = async (req, res) => {
     if (isValid) {
         try {
             const model = { username: req.body.username, hash: req.body.password };
+            // TODO Service create user with convs.
             const newUser = await userBuilder.createUser(model);
             const convs = await convService.createConvsForUserAndPublicRooms(newUser[0]);
             const userAlreadyExist = !newUser[1];

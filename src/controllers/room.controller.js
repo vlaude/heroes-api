@@ -1,12 +1,28 @@
 const Ajv = require('ajv');
 
-const config = require('../config');
 const logger = require('../util/logger');
 const roomBuilder = require('../builders/room.builder');
+const roomService = require('../services/room.service');
 
 const ajv = new Ajv({ allErrors: true });
 
 const roomSchema = {
+    type: 'object',
+    properties: {
+        name: {
+            type: 'string',
+        },
+        iconPath: {
+            type: 'string',
+        },
+        type: {
+            enum: ['PRIVATE', 'PROJECT'],
+        },
+    },
+    required: ['name', 'type'],
+};
+
+const roomPublicSchema = {
     type: 'object',
     properties: {
         name: {
@@ -20,8 +36,23 @@ const roomSchema = {
 };
 
 const getAllRooms = async (req, res) => {
-    const rooms = await roomBuilder.getAllRooms();
-    res.status(200).send(rooms);
+    try {
+        const rooms = await roomBuilder.getAllPublicRooms();
+        res.status(200).send(rooms);
+    } catch (error) {
+        logger.error(error);
+        res.status(500).send(`${error.name} : ${error.message}`);
+    }
+};
+
+const getAllJoinedRooms = async (req, res) => {
+    try {
+        const roomsJoined = await roomService.getAllJoinedRooms(req.user);
+        res.status(200).send(roomsJoined);
+    } catch (error) {
+        logger.error(error);
+        res.status(500).send(`${error.name} : ${error.message}`);
+    }
 };
 
 const createRoom = async (req, res) => {
@@ -29,11 +60,8 @@ const createRoom = async (req, res) => {
     const isValid = validate(req.body);
     if (isValid) {
         try {
-            const newRoom = await roomBuilder.createRoom(req.body);
-            const roomAlreadyExist = !newRoom[1];
-            return roomAlreadyExist
-                ? res.status(409).send({ message: `A room with the name ${newRoom[0].name} already exist` })
-                : res.status(201).send(newRoom[0]);
+            const newRoom = await roomService.createRoom(req.user, req.body);
+            return res.status(201).send(newRoom);
         } catch (error) {
             logger.error(error);
             return res.status(500).send(`${error.name} : ${error.message}`);
@@ -43,4 +71,20 @@ const createRoom = async (req, res) => {
     }
 };
 
-module.exports = { getAllRooms, createRoom };
+const createPublicRoom = async (req, res) => {
+    const validate = ajv.compile(roomPublicSchema);
+    const isValid = validate(req.body);
+    if (isValid) {
+        try {
+            const newRoom = await roomService.createPublicRoom(req.body);
+            return res.status(201).send(newRoom);
+        } catch (error) {
+            logger.error(error);
+            return res.status(error.status || 500).send(error.message || `${error.name} : ${error.message}`);
+        }
+    } else {
+        return res.status(400).send({ error: validate.errors });
+    }
+};
+
+module.exports = { getAllRooms, getAllJoinedRooms, createRoom, createPublicRoom };

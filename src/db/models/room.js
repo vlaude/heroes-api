@@ -11,11 +11,14 @@ module.exports = (sequelize, DataTypes) => {
             name: {
                 type: DataTypes.STRING,
                 allowNull: false,
-                unique: true,
             },
             iconPath: {
                 type: DataTypes.STRING,
                 allowNull: true,
+            },
+            type: {
+                type: DataTypes.ENUM('PUBLIC', 'PRIVATE', 'PROJECT'),
+                allowNull: false,
             },
         },
         {}
