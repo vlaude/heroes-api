@@ -6,10 +6,11 @@ const cors = require('cors');
 // const hpp = require('hpp');
 const helmet = require('helmet');
 
-const { initAuth, isAuthenticated } = require('./controllers/auth');
-const apiAuth = require('./auth');
-const apiUsers = require('./users');
-const apiMessages = require('./messages');
+const { initAuth, isAuthenticated } = require('../middlewares/auth');
+const apiAuth = require('./auth.route');
+const apiUsers = require('./user.route');
+const apiMessages = require('./message.route');
+const apiOAuth = require('./oauth');
 
 const api = express();
 initAuth();
@@ -29,30 +30,6 @@ apiRoutes.get('/', (req, res) => {
   res.status(200).send({ message: 'Hello from the awesome heroes api !' });
 });
 
-apiRoutes.post('/webhook', function(req, res) {
-  if (!req.isXHubValid()) {
-    res.status(400).send('Invalid X-Hub Request');
-    console.log('Secret key is invalid');
-    return;
-  }
-
-  const command = req.headers['x-github-event'];
-  console.log('Command received : ' + command);
-
-  switch (command) {
-    case 'push':
-      console.log(req.body.sender.login);
-      console.log(req.body.sender.url);
-      console.log(req.body.head_commit.message);
-      res.send('Event push trigger');
-      break;
-
-    default:
-      res.status(400).send('Event not supported : ' + command);
-      console.log('Event not supported : ' + req.headers['X-Github-Event']);
-  }
-});
-
 apiRoutes
   .use('/auth', apiAuth)
   .use('/users', apiUsers)
@@ -69,6 +46,7 @@ apiRoutes
     next();
   });
 
+api.use(apiOAuth);
 api.use('/api/v1', apiRoutes);
 
 module.exports = api;

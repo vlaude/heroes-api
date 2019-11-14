@@ -1,5 +1,5 @@
 const omit = require('lodash.omit');
-const { Users } = require('../../db');
+const { Users } = require('../db');
 
 const createUser = ({ username, email, password }) =>
   Users.create({

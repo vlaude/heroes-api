@@ -1,8 +1,8 @@
 const omit = require('lodash.omit');
-const passport = require('passport');
-const { ExtractJwt, Strategy } = require('passport-jwt');
-const { getUserById } = require('./users');
-const { Users } = require('../../db');
+const passport = require('passport/lib');
+const { ExtractJwt, Strategy } = require('passport-jwt/lib');
+const { getUserById } = require('../builders/user.builder');
+const { Users } = require('../db');
 
 const jwtStrategy = opts =>
   new Strategy(opts, (jwtPayload, done) => {

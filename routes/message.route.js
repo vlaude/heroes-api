@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { getAllMessages } = require('./controllers/messages');
+const { getAllMessages } = require('../builders/message.builder');
 
 const apiMessages = express.Router();
 

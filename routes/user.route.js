@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser, getUserByUsername } = require('./controllers/users');
+const { createUser, getUserByUsername } = require('../builders/user.builder');
 
 const apiUsers = express.Router();
 
