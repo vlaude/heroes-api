@@ -33,7 +33,7 @@
     },
     "dependencies": {
         "ajv": "^6.10.0",
-        "bcrypt": "^3.0.6",
+        "bcrypt": "^5.0.1",
         "body-parser": "^1.18.3",
         "cors": "^2.8.5",
         "env-cmd": "^8.0.2",
@@ -52,7 +52,7 @@
         "pg-hstore": "^2.3.2",
         "pino": "^5.12.6",
         "pino-pretty": "^3.1.0",
-        "sequelize": "^5.8.11",
+        "sequelize": "^6.1.0",
         "socket.io": "^2.2.0"
     },
     "devDependencies": {
