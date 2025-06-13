@@ -33,7 +33,7 @@
     },
     "dependencies": {
         "ajv": "^6.10.0",
-        "bcrypt": "^3.0.6",
+        "bcrypt": "^5.0.1",
         "body-parser": "^1.18.3",
         "cors": "^2.8.5",
         "env-cmd": "^8.0.2",
