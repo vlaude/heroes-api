@@ -52,7 +52,7 @@
         "pg-hstore": "^2.3.2",
         "pino": "^5.12.6",
         "pino-pretty": "^3.1.0",
-        "sequelize": "^5.8.11",
+        "sequelize": "^6.6.5",
         "socket.io": "^2.2.0"
     },
     "devDependencies": {
